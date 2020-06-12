@@ -42,7 +42,7 @@ ARG android_home=/opt/android/sdk
 
 RUN sudo apt-get update && \
     sudo apt-get install --yes \
-        wget xvfb lib32z1 lib32stdc++6 build-essential \
+        wget xvfb lib32z1 lib32stdc++6 build-essential python3-pip \
         libcurl4-openssl-dev libglu1-mesa libxi-dev libxmu-dev \
         libglu1-mesa-dev && \
     sudo rm -rf /var/lib/apt/lists/*
