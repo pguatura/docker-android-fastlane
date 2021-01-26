@@ -48,12 +48,11 @@ RUN sudo apt-get update && \
     sudo rm -rf /var/lib/apt/lists/*
 
 # Download Google Cloud SDK
-RUN cd /tmp && curl https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-323.0.0-linux-x86_64.tar.gz > google-cloud-sdk.tar.gz
+RUN curl https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-323.0.0-linux-x86_64.tar.gz > /tmp/google-cloud-sdk.tar.gz
 
 # Install Google Cloud SDK
-RUN mkdir -p ${HOME}/gcloud && \
-    tar -C ${HOME}/gcloud -xvf /tmp/google-cloud-sdk.tar.gz && \
-    ./google-cloud-sdk/install.sh
+RUN tar -C ${HOME} -xvf /tmp/google-cloud-sdk.tar.gz && \
+    .${HOME}/google-cloud-sdk/install.sh
 
 # Install Ruby
 RUN sudo apt-get update && \
