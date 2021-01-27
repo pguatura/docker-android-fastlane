@@ -78,7 +78,7 @@ RUN sudo mkdir -p ${android_home} && \
 ENV ANDROID_HOME ${android_home}
 ENV ADB_INSTALL_TIMEOUT 120
 ENV PATH=${ANDROID_HOME}/emulator:${ANDROID_HOME}/tools:${ANDROID_HOME}/tools/bin:${ANDROID_HOME}/platform-tools:${PATH}
-ENV PATH ${PATH}:/usr/local/gcloud/google-cloud-sdk/bin
+ENV PATH ${PATH}:${HOME}/google-cloud-sdk/bin
 
 RUN mkdir ~/.android && echo '### User Sources for Android SDK Manager' > ~/.android/repositories.cfg
 
