@@ -52,7 +52,7 @@ RUN curl https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud
 
 # Install Google Cloud SDK
 RUN tar -C ${HOME} -xvf /tmp/google-cloud-sdk.tar.gz && \
-    .${HOME}/google-cloud-sdk/install.sh
+  .${HOME}/google-cloud-sdk/install.sh
 
 # Install Ruby
 RUN sudo apt-get update && \
@@ -86,8 +86,7 @@ RUN yes | sdkmanager --licenses && yes | sdkmanager --update
 
 RUN sdkmanager \
   "tools" \
-  "platform-tools" \
-  "emulator"
+  "platform-tools" 
 
 RUN sdkmanager "build-tools;29.0.3"
 RUN sdkmanager "platforms;android-30"
