@@ -13,7 +13,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update \
   && mkdir -p /usr/share/man/man1 \
   && apt-get install -y \
-    git apt sudo openssh-client ca-certificates gzip curl make unzip
+  git apt sudo openssh-client ca-certificates gzip curl make unzip
 
 
 # Set timezone to UTC by default
@@ -41,31 +41,31 @@ ARG android_home=/opt/android/sdk
 # SHA-256 92ffee5a1d98d856634e8b71132e8a95d96c83a63fde1099be3d86df3106def9
 
 RUN sudo apt-get update && \
-    sudo apt-get install --yes \
-        wget xvfb lib32z1 lib32stdc++6 build-essential python3-pip \
-        libcurl4-openssl-dev libglu1-mesa libxi-dev libxmu-dev \
-        libglu1-mesa-dev && \
-    sudo rm -rf /var/lib/apt/lists/*
+  sudo apt-get install --yes \
+  wget xvfb lib32z1 lib32stdc++6 build-essential python3-pip \
+  libcurl4-openssl-dev libglu1-mesa libxi-dev libxmu-dev \
+  libglu1-mesa-dev && \
+  sudo rm -rf /var/lib/apt/lists/*
 
 # Install Ruby
 RUN sudo apt-get update && \
-    cd /tmp && wget -O ruby-install-0.6.1.tar.gz https://github.com/postmodern/ruby-install/archive/v0.6.1.tar.gz && \
-    tar -xzvf ruby-install-0.6.1.tar.gz && \
-    cd ruby-install-0.6.1 && \
-    sudo make install && \
-    ruby-install --cleanup ruby 2.6.1 && \
-    rm -r /tmp/ruby-install-* && \
-    sudo rm -rf /var/lib/apt/lists/*
+  cd /tmp && wget -O ruby-install-0.6.1.tar.gz https://github.com/postmodern/ruby-install/archive/v0.6.1.tar.gz && \
+  tar -xzvf ruby-install-0.6.1.tar.gz && \
+  cd ruby-install-0.6.1 && \
+  sudo make install && \
+  ruby-install --cleanup ruby 2.6.1 && \
+  rm -r /tmp/ruby-install-* && \
+  sudo rm -rf /var/lib/apt/lists/*
 
 ENV PATH ${HOME}/.rubies/ruby-2.6.1/bin:${PATH}
 RUN echo 'gem: --env-shebang --no-rdoc --no-ri' >> ~/.gemrc && gem install bundler
 
 # Download and install Android SDK
 RUN sudo mkdir -p ${android_home} && \
-    sudo chown -R circleci:circleci ${android_home} && \
-    curl --silent --show-error --location --fail --retry 3 --output /tmp/${sdk_version} https://dl.google.com/android/repository/${sdk_version} && \
-    unzip -q /tmp/${sdk_version} -d ${android_home} && \
-    rm /tmp/${sdk_version}
+  sudo chown -R circleci:circleci ${android_home} && \
+  curl --silent --show-error --location --fail --retry 3 --output /tmp/${sdk_version} https://dl.google.com/android/repository/${sdk_version} && \
+  unzip -q /tmp/${sdk_version} -d ${android_home} && \
+  rm /tmp/${sdk_version}
 
 # Set environmental variables
 ENV ANDROID_HOME ${android_home}
@@ -81,12 +81,7 @@ RUN sdkmanager \
   "platform-tools" \
   "emulator"
 
-RUN sdkmanager \
-  "build-tools;29.0.3"
-
-RUN sdkmanager "platforms;android-28"
-RUN sdkmanager "platforms;android-29"
-RUN sdkmanager \
-  "build-tools;28.0.3"
+RUN sdkmanager "build-tools;29.0.3"
+RUN sdkmanager "platforms;android-30"
 
 RUN gem install fastlane -NV -v 2.149.1
