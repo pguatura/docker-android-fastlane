@@ -89,6 +89,7 @@ RUN sdkmanager \
   "platform-tools" 
 
 RUN sdkmanager "build-tools;29.0.3"
+RUN sdkmanager "build-tools;28.0.3"
 RUN sdkmanager "platforms;android-30"
 
 RUN gem install fastlane -NV -v 2.149.1
