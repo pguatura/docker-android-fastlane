@@ -47,6 +47,13 @@ RUN sudo apt-get update && \
   libglu1-mesa-dev && \
   sudo rm -rf /var/lib/apt/lists/*
 
+# Download Google Cloud SDK
+RUN curl https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-323.0.0-linux-x86_64.tar.gz > /tmp/google-cloud-sdk.tar.gz
+
+# Install Google Cloud SDK
+RUN tar -C ${HOME} -xvf /tmp/google-cloud-sdk.tar.gz && \
+    .${HOME}/google-cloud-sdk/install.sh
+
 # Install Ruby
 RUN sudo apt-get update && \
   cd /tmp && wget -O ruby-install-0.6.1.tar.gz https://github.com/postmodern/ruby-install/archive/v0.6.1.tar.gz && \
@@ -71,6 +78,7 @@ RUN sudo mkdir -p ${android_home} && \
 ENV ANDROID_HOME ${android_home}
 ENV ADB_INSTALL_TIMEOUT 120
 ENV PATH=${ANDROID_HOME}/emulator:${ANDROID_HOME}/tools:${ANDROID_HOME}/tools/bin:${ANDROID_HOME}/platform-tools:${PATH}
+ENV PATH ${PATH}:${HOME}/google-cloud-sdk/bin
 
 RUN mkdir ~/.android && echo '### User Sources for Android SDK Manager' > ~/.android/repositories.cfg
 
