@@ -13,7 +13,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update \
   && mkdir -p /usr/share/man/man1 \
   && apt-get install -y \
-  git apt sudo openssh-client ca-certificates gzip curl make unzip
+  git apt sudo openssh-client ca-certificates gzip curl make unzip procps
 
 
 # Set timezone to UTC by default
